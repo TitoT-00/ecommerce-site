@@ -1,0 +1,299 @@
+/* Retro Gaming Theme CSS */
+:root {
+    --primary-color: #8b2be2;
+    --secondary-color: #ff3864;
+    --background-color: #1a1a1a;
+    --text-color: #33ff00;
+    --card-bg: #2a2a2a;
+    --pixel-border: #33ff00;
+}
+
+@font-face {
+    font-family: 'Press Start 2P';
+    src: url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Press Start 2P', cursive;
+    line-height: 1.6;
+}
+
+.jumbotron {
+    background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+    border: 4px solid var(--pixel-border);
+    box-shadow: 0 0 10px var(--text-color);
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.jumbotron::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border: 3px solid var(--text-color);
+    color: var(--text-color);
+    font-family: 'Press Start 2P', cursive;
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--text-color);
+}
+
+.card {
+    background-color: var(--card-bg);
+    border: 4px solid var(--pixel-border);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 30px var(--text-color);
+}
+
+.card-title {
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.card-text {
+    color: var(--text-color);
+}
+
+.price {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* Retro Animation */
+@keyframes glitch {
+    0% { transform: translate(0) }
+    20% { transform: translate(-2px, 2px) }
+    40% { transform: translate(-2px, -2px) }
+    60% { transform: translate(2px, 2px) }
+    80% { transform: translate(2px, -2px) }
+    100% { transform: translate(0) }
+}
+
+.display-4 {
+    animation: glitch 5s infinite;
+    color: var(--text-color);
+    text-shadow: 3px 3px 0 var(--secondary-color);
+}
+
+/* Cart Icon Style */
+.cart-icon {
+    color: var(--text-color);
+    font-size: 24px;
+    position: relative;
+}
+
+.cart-count {
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+}
+
+/* Category Tags */
+.platform-tag,
+.condition-tag,
+.compatibility-tag {
+    display: inline-block;
+    padding: 0.3rem 0.6rem;
+    margin: 0.5rem 0;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.platform-tag {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.condition-tag {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.compatibility-tag {
+    background-color: #2a2a2a;
+    border: 2px solid var(--text-color);
+    color: var(--text-color);
+}
+
+/* Category Buttons */
+.btn-lg {
+    font-size: 0.9rem;
+    padding: 0.8rem 1.5rem;
+    margin: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn-lg:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px var(--text-color);
+}
+
+/* Featured Sections */
+.featured-section {
+    margin-top: 3rem;
+    padding: 2rem 0;
+    border-bottom: 4px solid var(--text-color);
+}
+
+.featured-section h2 {
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 0px var(--primary-color);
+}
+
+/* View All Buttons */
+.view-all-btn {
+    margin-top: 2rem;
+    padding: 0.5rem 2rem;
+    font-size: 0.8rem;
+}
+
+/* Card Image */
+.card-img-top {
+    height: 200px;
+    object-fit: contain;
+    background-color: #1a1a1a;
+    padding: 1rem;
+}
+
+/* Cart Styles */
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.quantity-controls button {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+}
+
+.quantity-controls span {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+}
+
+#cart-summary .card {
+    background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+    border: 4px solid var(--text-color);
+}
+
+#cart-summary .card-title {
+    color: var(--text-color);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+/* Toast Message */
+.toast-message {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--text-color);
+    color: var(--background-color);
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    animation: slideIn 0.3s ease-out;
+    z-index: 1000;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Cart Item Styles */
+#cart-items .card {
+    transition: transform 0.3s ease;
+}
+
+#cart-items .card:hover {
+    transform: translateY(-5px);
+}
+
+#cart-items .card-title {
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+
+#cart-items .btn-danger {
+    background-color: var(--secondary-color);
+    border: none;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+}
+
+#cart-items .btn-outline-primary {
+    border-color: var(--text-color);
+    color: var(--text-color);
+}
+
+#cart-items .btn-outline-primary:hover {
+    background-color: var(--text-color);
+    color: var(--background-color);
+}
+
+/* Empty Cart Message */
+#empty-cart-message {
+    color: var(--text-color);
+}
+
+#empty-cart-message h3 {
+    font-family: 'Press Start 2P', cursive;
+    margin-bottom: 1rem;
+}
+
+#empty-cart-message .text-muted {
+    color: var(--secondary-color) !important;
+}

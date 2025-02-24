@@ -1,0 +1,34 @@
+{% macro Z(products, category) %}
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-12">
+            <h1 class="text-center mb-4">{{ category }}</h1>
+        </div>
+    </div>
+    
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    {% if product.platform %}
+                    <p class="platform-tag">Platform: {{ product.platform }}</p>
+                    {% endif %}
+                    {% if product.condition %}
+                    <p class="condition-tag">Condition: {{ product.condition }}</p>
+                    {% endif %}
+                    {% if product.compatibility %}
+                    <p class="compatibility-tag">For: {{ product.compatibility }}</p>
+                    {% endif %}
+                    <p class="price">${{ "%.2f"|format(product.price) }}</p>
+                    <button class="btn btn-primary add-to-cart" data-product-id="{{ product.id }}">ADD TO CART</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endmacro %}

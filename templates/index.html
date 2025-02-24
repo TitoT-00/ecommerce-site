@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% from "product_list.html" import Z %}
+
+{% block title %}Retro Game Haven - Your Classic Gaming Store{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center py-5">
+    <h1 class="display-4">RETRO GAME HAVEN</h1>
+    <p class="lead">Your Gateway to Classic Gaming Treasures!</p>
+    <div class="mt-4">
+        <a href="/games" class="btn btn-primary btn-lg mx-2">BROWSE GAMES</a>
+        <a href="/consoles" class="btn btn-primary btn-lg mx-2">VIEW CONSOLES</a>
+        <a href="/accessories" class="btn btn-primary btn-lg mx-2">SHOP ACCESSORIES</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2 class="text-center mb-4">FEATURED GAMES</h2>
+            <div class="row">
+                {% for game in games %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{ game.image_url }}" class="card-img-top" alt="{{ game.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ game.name }}</h5>
+                            <p class="card-text">{{ game.description }}</p>
+                            <p class="platform-tag">Platform: {{ game.platform }}</p>
+                            <p class="price">${{ "%.2f"|format(game.price) }}</p>
+                            <button class="btn btn-primary add-to-cart" data-product-id="{{ game.id }}">ADD TO CART</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="text-center mt-3">
+                <a href="/games" class="btn btn-primary">VIEW ALL GAMES</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2 class="text-center mb-4">FEATURED CONSOLES</h2>
+            <div class="row">
+                {% for console in consoles %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <img src="{{ console.image_url }}" class="card-img-top" alt="{{ console.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ console.name }}</h5>
+                            <p class="card-text">{{ console.description }}</p>
+                            <p class="condition-tag">Condition: {{ console.condition }}</p>
+                            <p class="price">${{ "%.2f"|format(console.price) }}</p>
+                            <button class="btn btn-primary add-to-cart" data-product-id="{{ console.id }}">ADD TO CART</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="text-center mt-3">
+                <a href="/consoles" class="btn btn-primary">VIEW ALL CONSOLES</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2 class="text-center mb-4">FEATURED ACCESSORIES</h2>
+            <div class="row">
+                {% for accessory in accessories %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <img src="{{ accessory.image_url }}" class="card-img-top" alt="{{ accessory.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ accessory.name }}</h5>
+                            <p class="card-text">{{ accessory.description }}</p>
+                            <p class="compatibility-tag">For: {{ accessory.compatibility }}</p>
+                            <p class="price">${{ "%.2f"|format(accessory.price) }}</p>
+                            <button class="btn btn-primary add-to-cart" data-product-id="{{ accessory.id }}">ADD TO CART</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="text-center mt-3">
+                <a href="/accessories" class="btn btn-primary">VIEW ALL ACCESSORIES</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

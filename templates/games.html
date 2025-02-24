@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% from "product_list.html" import Z %}
+
+{% block title %}Retro Games - Retro Game Haven{% endblock %}
+
+{% block content %}
+{{ Z(products, "RETRO GAMES") }}
+{% endblock %}

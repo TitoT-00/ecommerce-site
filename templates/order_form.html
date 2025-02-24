@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="alert alert-info" role="alert">
+        <strong>🎮 Demo Notice:</strong> This is a demonstration site. No personal information, payment details, or order data will be stored or processed.
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body text-white">
+                    <h3 class="card-title mb-4 ">Order Information</h3>
+                    <form id="orderForm" class="needs-validation" novalidate>
+                        <!-- Personal Information -->
+                        <h4 class="mb-3 text-grey">Personal Information</h4>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="text-white">First Name</label>
+                                <input type="text" class="form-control" id="firstName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="text-white">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="text-white">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="text-white">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" required>
+                        </div>
+
+                        <!-- Delivery Information -->
+                        <h4 class="mb-3 mt-4 text-grey">Delivery Information</h4>
+                        <div class="mb-3">
+                            <label for="address" class="text-white">Street Address</label>
+                            <input type="text" class="form-control" id="address" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="city" class="text-white">City</label>
+                                <input type="text" class="form-control" id="city" required>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="state" class="text-white">State</label>
+                                <input type="text" class="form-control" id="state" required>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="zip" class="text-white">ZIP Code</label>
+                                <input type="text" class="form-control" id="zip" required>
+                            </div>
+                        </div>
+
+                        <!-- Payment Information -->
+                        <h4 class="mb-3 mt-4 text-grey">Payment Information</h4>
+                        <div class="mb-3">
+                            <label for="cardName" class="text-white">Name on Card</label>
+                            <input type="text" class="form-control" id="cardName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cardNumber" class="text-white">Card Number</label>
+                            <input type="text" class="form-control" id="cardNumber" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="expDate" class="text-white">Expiration Date</label>
+                                <input type="text" class="form-control" id="expDate" placeholder="MM/YY" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="cvv" class="text-white">CVV</label>
+                                <input type="text" class="form-control" id="cvv" required>
+                            </div>
+                        </div>
+
+                        <hr class="mb-4 border-white">
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Place Order</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-white">
+                    <h4 class="card-title">Order Summary</h4>
+                    <div id="order-items" class="text-white"></div>
+                    <hr class="border-white">
+                    <div class="d-flex justify-content-between mb-2 text-white">
+                        <span>Subtotal:</span>
+                        <span>$<span id="summary-subtotal">0.00</span></span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2 text-white">
+                        <span>Shipping:</span>
+                        <span>$<span id="summary-shipping">5.00</span></span>
+                    </div>
+                    <hr class="border-white">
+                    <div class="d-flex justify-content-between text-white">
+                        <strong>Total:</strong>
+                        <strong>$<span id="summary-total">0.00</span></strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Load cart items and update summary
+    const cart = JSON.parse(localStorage.getItem('cart')) || {};
+    const orderItems = document.getElementById('order-items');
+    let subtotal = 0;
+
+    for (const [productId, item] of Object.entries(cart)) {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'mb-2 text-white';
+        itemDiv.innerHTML = `
+            <div class="d-flex justify-content-between">
+                <span>${item.name} x${item.quantity}</span>
+                <span>$${(item.price * item.quantity).toFixed(2)}</span>
+            </div>
+        `;
+        orderItems.appendChild(itemDiv);
+        subtotal += item.price * item.quantity;
+    }
+
+    // Update summary amounts
+    document.getElementById('summary-subtotal').textContent = subtotal.toFixed(2);
+    const shipping = 5.00;
+    const total = subtotal + shipping;
+    document.getElementById('summary-total').textContent = total.toFixed(2);
+
+    // Form submission handler
+    const orderForm = document.getElementById('orderForm');
+    orderForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('This is a demo site. No order has been processed. In a real application, this would submit the order for processing.');
+        // Clear cart
+        localStorage.removeItem('cart');
+        // Redirect to home page
+        window.location.href = '/';
+    });
+});
+</script>
+{% endblock %}

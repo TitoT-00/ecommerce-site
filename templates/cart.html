@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}Shopping Cart - Retro Game Haven{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-4">YOUR SHOPPING CART</h2>
+    
+    <div id="cart-items" class="row">
+        <!-- Cart items will be dynamically populated here -->
+    </div>
+
+    <div class="mt-4" id="cart-summary" style="display: none;">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">ORDER SUMMARY</h4>
+                <div class="d-flex justify-content-between mb-3 text-white">
+                    <span>Subtotal:</span>
+                    <span>$<span id="cart-subtotal">0.00</span></span>
+                </div>
+                <div class="d-flex justify-content-between mb-3 text-white">
+                    <span>Shipping:</span>
+                    <span>$<span id="shipping">5.00</span></span>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between mb-3 text-white">
+                    <strong>Total:</strong>
+                    <strong>$<span id="cart-total">0.00</span></strong>
+                </div>
+                <a href="/order" class="btn btn-primary btn-lg btn-block">Proceed to Checkout</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="empty-cart-message" class="text-center py-5" style="display: none;">
+        <h3>Your cart is empty</h3>
+        <p class="text-muted">Time to add some retro gaming treasures!</p>
+        <a href="/" class="btn btn-primary mt-3">CONTINUE SHOPPING</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    displayCart();
+});
+
+function displayCart() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartSummary = document.getElementById('cart-summary');
+    const emptyCartMessage = document.getElementById('empty-cart-message');
+    
+    console.log('Cart contents:', cart); // Debug log
+    
+    if (!cart || cart.length === 0) {
+        cartItemsContainer.style.display = 'none';
+        cartSummary.style.display = 'none';
+        emptyCartMessage.style.display = 'block';
+        return;
+    }
+    
+    cartItemsContainer.style.display = 'block';
+    cartSummary.style.display = 'block';
+    emptyCartMessage.style.display = 'none';
+    
+    // Generate HTML for cart items
+    const cartHTML = cart.map(item => `
+        <div class="col-12 mb-3">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-md-2">
+                        <img src="${item.image_url}" class="img-fluid rounded-start" alt="${item.name}" 
+                             style="max-height: 150px; object-fit: contain; padding: 1rem;">
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body">
+                            <h5 class="card-title">${item.name}</h5>
+                            <p class="card-text">
+                                ${item.platform ? `<span class="badge bg-secondary me-2">Platform: ${item.platform}</span>` : ''}
+                                ${item.condition ? `<span class="badge bg-info me-2">Condition: ${item.condition}</span>` : ''}
+                                ${item.compatibility ? `<span class="badge bg-primary">For: ${item.compatibility}</span>` : ''}
+                            </p>
+                            <p class="card-text">$${item.price.toFixed(2)}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card-body text-end">
+                            <div class="quantity-controls mb-3">
+                                <button class="btn btn-sm btn-outline-primary" onclick="updateQuantity('${item.id}', -1)">-</button>
+                                <span class="mx-2">${item.quantity}</span>
+                                <button class="btn btn-sm btn-outline-primary" onclick="updateQuantity('${item.id}', 1)">+</button>
+                            </div>
+                            <button class="btn btn-sm btn-danger" onclick="removeFromCart('${item.id}')">
+                                <i class="fas fa-trash"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    cartItemsContainer.innerHTML = cartHTML;
+    
+    // Update totals
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const shipping = 5.00;
+    const total = subtotal + shipping;
+    
+    document.getElementById('cart-subtotal').textContent = subtotal.toFixed(2);
+    document.getElementById('cart-total').textContent = total.toFixed(2);
+}
+
+function updateQuantity(productId, change) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const index = cart.findIndex(item => item.id === productId);
+    
+    if (index > -1) {
+        const newQuantity = cart[index].quantity + change;
+        if (newQuantity <= 0) {
+            removeFromCart(productId);
+        } else {
+            cart[index].quantity = newQuantity;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCart();
+            updateCartCount();
+        }
+    }
+}
+
+function removeFromCart(productId) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart = cart.filter(item => item.id !== productId);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    displayCart();
+    updateCartCount();
+}
+
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const cartCountElement = document.getElementById('cart-count');
+    if (cartCountElement) {
+        cartCountElement.textContent = totalItems;
+    }
+}
+</script>
+{% endblock %}

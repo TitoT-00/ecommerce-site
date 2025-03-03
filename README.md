@@ -38,3 +38,36 @@ flask run
 - Stripe payment integration
 - Database integration ready
 - Responsive design
+
+## Retro Game Haven - Screenshots
+
+### Homepage
+![Homepage](screenshots/homepage.png)
+*Your Gateway to Classic Gaming Treasures! Browse through our collection of retro games, consoles, and accessories.*
+
+### Retro Games Collection
+![Retro Games](screenshots/games.png)
+*Featured classics including Super Mario Bros. 3, The Legend of Zelda, Sonic the Hedgehog 2, Final Fantasy VII, and more.*
+
+### Retro Consoles
+![Retro Consoles](screenshots/consoles.png)
+*Original gaming systems in excellent condition, including Nintendo 64, PlayStation 1, SEGA Genesis, Super Nintendo, and GameBoy Color.*
+
+### Gaming Accessories
+![Gaming Accessories](screenshots/accessories.png)
+*Essential gaming accessories including controllers, memory cards, link cables, and power adapters.*
+
+### Shopping Cart
+![Shopping Cart](screenshots/cart.png)
+*User-friendly shopping cart with clear order summary and secure checkout process.*
+
+## Additional Features
+- Retro-styled UI design with classic gaming aesthetics
+- Detailed product descriptions and condition ratings
+- Secure payment processing
+- Multiple gaming platforms supported
+- Original and authentic gaming hardware and software
+- Categorized browsing experience
+- Real-time cart updates
+- Shipping calculation
+- Mobile-responsive design
